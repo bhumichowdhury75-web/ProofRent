@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build and distribution
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+.env.preprod
+.env.preview
+.env.test
+
+# Logs and databases
+logs/
+*.log
+midnight-level-db/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# NOTE: Do NOT ignore frontend/src/managed or frontend/public/managed!
+# They contain contract types and ZK keys needed for CI builds.
