@@ -1,0 +1,152 @@
+pragma language_version >= 0.22;
+
+import CompactStandardLibrary;
+
+// =============================================================================
+// ProofRent - Privacy-First Rental Verification Platform
+// Midnight Network Smart Contract
+// =============================================================================
+
+// Public Ledger State (On-chain, verifiable by anyone)
+export ledger min_tenancy_months: Uint<32>;
+export ledger min_payment_score: Uint<32>;       // Minimum on-time percentage (e.g. 90 = 90%)
+export ledger max_violations: Uint<32>;          // Maximum allowable lease violations (e.g. 0)
+export ledger min_completed_leases: Uint<32>;    // Minimum completed leases required (e.g. 1)
+export ledger admin: Bytes<32>;                  // Hash of platform authority / governance key
+export ledger is_active: Boolean;                // Protocol operational status flag
+export ledger total_verifications: Uint<32>;     // Total ZK verifications processed
+export ledger total_credentials: Uint<32>;       // Total credentials registered
+export ledger deadline: Uint<64>;                // Active verification cycle deadline
+export ledger credential_registry: Set<Bytes<32>>; // Issued credential commitments
+export ledger revoked_credentials: Set<Bytes<32>>; // Revoked credential commitments
+export ledger nullifiers: Set<Bytes<32>>;        // Replay prevention nullifiers
+
+// =============================================================================
+// Private Witnesses (Never revealed on-chain, evaluated locally in ZK proof)
+// =============================================================================
+struct RentalCredential {
+    tenant_id: Bytes<32>,          // Private tenant identifier / coin public key
+    tenancy_months: Uint<32>,      // Duration of completed tenancy in months
+    payment_score: Uint<32>,       // On-time rental payment reliability score (0-100)
+    violations: Uint<32>,          // Number of unresolved lease infractions
+    completed_leases: Uint<32>,    // Total successful leases completed
+    lease_completed: Boolean,      // Whether lease concluded in good standing
+    credential_salt: Bytes<32>     // Blinding factor ensuring commitment uniqueness
+}
+
+witness rental_credential(): RentalCredential;
+witness admin_secret_key(): Bytes<32>;
+
+// =============================================================================
+// Constructor - Initialized upon deployment to Midnight Preprod / Local
+// =============================================================================
+constructor(
+    initial_min_months: Uint<32>,
+    initial_min_score: Uint<32>,
+    initial_max_violations: Uint<32>,
+    initial_min_completed_leases: Uint<32>,
+    initial_admin: Bytes<32>,
+    initial_deadline: Uint<64>
+) {
+    min_tenancy_months = disclose(initial_min_months);
+    min_payment_score = disclose(initial_min_score);
+    max_violations = disclose(initial_max_violations);
+    min_completed_leases = disclose(initial_min_completed_leases);
+    admin = disclose(initial_admin);
+    deadline = disclose(initial_deadline);
+    is_active = disclose(true);
+    total_verifications = disclose(0);
+    total_credentials = disclose(0);
+}
+
+// =============================================================================
+// Core Verification Circuit (Tenant proves rental claims with zero disclosure)
+// =============================================================================
+export circuit verify_rental_history(): [] {
+    // 1. Verify protocol preconditions
+    assert(disclose(is_active), "ProofRent verification is currently paused");
+    assert(blockTimeLt(disclose(deadline)), "Verification deadline has passed");
+
+    // 2. Load private credential witness into ZK circuit memory
+    const creds = rental_credential();
+
+    // 3. Authenticate credential commitment against public registry
+    const commitment = credentialCommitment(creds.tenant_id, creds.credential_salt);
+    assert(credential_registry.member(disclose(commitment)), "Credential commitment not found in registry");
+    assert(!revoked_credentials.member(disclose(commitment)), "Credential has been revoked by landlord");
+
+    // 4. Assert private claims without disclosing any underlying values
+    assert(creds.lease_completed, "Tenant lease was not marked completed in good standing");
+    assert(creds.tenancy_months >= min_tenancy_months, "Tenancy duration fails minimum threshold");
+    assert(creds.payment_score >= min_payment_score, "Payment reliability score fails minimum threshold");
+    assert(creds.violations <= max_violations, "Lease infractions exceed maximum allowed");
+    assert(creds.completed_leases >= min_completed_leases, "Completed leases count fails minimum threshold");
+
+    // 5. Derive deterministic nullifier to prevent replay / multi-submission
+    const nul = makeNullifier(creds.tenant_id, commitment);
+    assert(!nullifiers.member(disclose(nul)), "Credential has already been verified in this window");
+
+    // 6. Record public nullifier and increment verification counter
+    nullifiers.insert(disclose(nul));
+    total_verifications = disclose((total_verifications + 1) as Uint<32>);
+}
+
+// =============================================================================
+// Credential Issuance Circuit (Landlord commits credential hash to registry)
+// =============================================================================
+export circuit issue_credential(commitment: Bytes<32>): [] {
+    assert(disclose(is_active), "Credential issuance is currently paused");
+    assert(!credential_registry.member(disclose(commitment)), "Credential commitment already registered");
+
+    credential_registry.insert(disclose(commitment));
+    total_credentials = disclose((total_credentials + 1) as Uint<32>);
+}
+
+// =============================================================================
+// Credential Revocation Circuit (Authorized landlord/admin revokes a credential)
+// =============================================================================
+export circuit revoke_credential(commitment: Bytes<32>): [] {
+    const sk = admin_secret_key();
+    assert(admin == adminPublicKey(sk), "Unauthorized: invalid authority secret key");
+    assert(credential_registry.member(disclose(commitment)), "Target credential is not registered");
+    assert(!revoked_credentials.member(disclose(commitment)), "Credential has already been revoked");
+
+    revoked_credentials.insert(disclose(commitment));
+}
+
+// =============================================================================
+// Governance & Policy Update Circuit
+// =============================================================================
+export circuit update_policy(
+    new_min_months: Uint<32>,
+    new_min_score: Uint<32>,
+    new_max_violations: Uint<32>,
+    new_min_completed_leases: Uint<32>,
+    new_deadline: Uint<64>,
+    new_active_status: Boolean
+): [] {
+    const sk = admin_secret_key();
+    assert(admin == adminPublicKey(sk), "Unauthorized: invalid authority secret key");
+
+    min_tenancy_months = disclose(new_min_months);
+    min_payment_score = disclose(new_min_score);
+    max_violations = disclose(new_max_violations);
+    min_completed_leases = disclose(new_min_completed_leases);
+    deadline = disclose(new_deadline);
+    is_active = disclose(new_active_status);
+}
+
+// =============================================================================
+// Exported Pure Circuits (Deterministic ZK math helpers)
+// =============================================================================
+export pure circuit adminPublicKey(sk: Bytes<32>): Bytes<32> {
+    return persistentHash<Vector<2, Bytes<32>>>([pad(32, "proofrent:admin:v1"), sk]);
+}
+
+export pure circuit credentialCommitment(tenant_id: Bytes<32>, salt: Bytes<32>): Bytes<32> {
+    return persistentHash<Vector<3, Bytes<32>>>([pad(32, "proofrent:cred:v1"), tenant_id, salt]);
+}
+
+export pure circuit makeNullifier(tenant_id: Bytes<32>, commitment: Bytes<32>): Bytes<32> {
+    return persistentHash<Vector<3, Bytes<32>>>([pad(32, "proofrent:nullifier:v1"), tenant_id, commitment]);
+}
