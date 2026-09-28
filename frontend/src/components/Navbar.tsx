@@ -1,17 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useWallet } from '../contexts/WalletContext';
-import {
-  Shield,
-  Key,
-  CheckCircle,
-  AlertCircle,
-  ExternalLink,
-  ChevronDown,
-  Menu,
-  X,
-  Cpu,
-} from 'lucide-react';
 import { NETWORK_CONFIGS } from '../config';
 
 export function Navbar() {
@@ -26,111 +15,73 @@ export function Navbar() {
     connect,
     disconnect,
   } = useWallet();
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [walletDropdownOpen, setWalletDropdownOpen] = useState(false);
 
   const navLinks = [
     { path: '/', label: 'Overview' },
     { path: '/verify', label: 'Prove & Verify' },
-    { path: '/requests', label: 'Landlord Requests' },
+    { path: '/requests', label: 'Requests' },
     { path: '/issue', label: 'Issue Credential' },
-    { path: '/admin', label: 'Contract Deploy' },
+    { path: '/admin', label: 'Deploy' },
   ];
 
-  const formatAddress = (addr: string) => {
-    if (!addr) return '';
-    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
-  };
+  const formatAddress = (addr: string) => (addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : '');
 
   return (
-    <header className="sticky top-0 z-50 bg-[#080c14]/90 backdrop-blur-md border-b border-slate-800/80">
-      <div className="container-custom flex items-center justify-between h-16">
-        {/* Brand */}
-        <Link to="/" className="flex items-center gap-2.5 text-white font-bold tracking-tight text-lg group">
-          <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
-            <Shield size={20} className="stroke-[2.2]" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-white leading-none">ProofRent</span>
-            <span className="text-[10px] font-mono text-emerald-400/80 tracking-wider">MIDNIGHT NETWORK</span>
-          </div>
+    <header className="pr-nav">
+      <div className="container-custom pr-nav-inner">
+        <Link to="/" className="pr-brand" onClick={() => setMobileMenuOpen(false)}>
+          <img src="/proofrent-orb.svg" alt="ProofRent orbital key" width="38" height="38" />
+          <span className="pr-brand-copy">
+            <span className="pr-brand-name">ProofRent</span>
+            <span className="pr-brand-sub">private rental protocol</span>
+          </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-900/50 p-1 rounded-lg border border-slate-800">
+        <nav className="pr-nav-links" aria-label="Primary navigation">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
+            const isActive = location.pathname === link.path || (link.path === '/' && location.pathname === '/overview');
             return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  isActive
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-                }`}
-              >
+              <Link key={link.path} to={link.path} className={`pr-nav-link ${isActive ? 'active' : ''}`} aria-current={isActive ? 'page' : undefined}>
                 {link.label}
               </Link>
             );
           })}
         </nav>
 
-        {/* Wallet & Network info */}
-        <div className="flex items-center gap-2.5">
-          {/* Preprod Network Pill */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Preprod</span>
+        <div className="pr-nav-actions">
+          <div className="pr-network" title="Midnight Preprod network">
+            <span className="pr-network-dot" />
+            <span>PREPROD / LIVE</span>
           </div>
 
-          {/* Wallet Button */}
           {isConnected && address ? (
             <div className="relative">
               <button
-                onClick={() => setWalletDropdownOpen(!walletDropdownOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-slate-600 text-xs font-mono text-white transition-colors"
+                onClick={() => setWalletDropdownOpen((open) => !open)}
+                className="pr-wallet-btn"
+                aria-expanded={walletDropdownOpen}
               >
-                <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+                <span className="pr-network-dot" />
                 <span>{formatAddress(address)}</span>
-                <span className="text-slate-500 text-[10px] uppercase font-bold px-1 py-0.5 rounded bg-slate-800">
-                  {walletType ?? '1AM'}
-                </span>
-                <ChevronDown size={14} className="text-slate-400" />
+                <span style={{ color: '#8d899b' }}>{walletType ?? 'wallet'}</span>
+                <span aria-hidden="true">⌄</span>
               </button>
-
               {walletDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 rounded-xl bg-slate-900 border border-slate-800 shadow-2xl p-4 text-xs z-50">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-                    <span className="text-slate-400 font-medium">Connected Wallet</span>
-                    <span className="badge-verified text-[11px] py-0.5 px-2">Active</span>
+                <div className="pr-wallet-menu">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#f2eefc', fontSize: '.76rem', fontWeight: 700 }}>
+                    <span>Connected vault</span>
+                    <span className="badge-verified" style={{ fontSize: '.56rem' }}>active</span>
                   </div>
-
-                  <div className="mb-3">
-                    <div className="text-[11px] text-slate-400 mb-1">Unshielded Address</div>
-                    <div className="font-mono text-[11px] bg-slate-950 p-2 rounded-md break-all border border-slate-800 text-slate-200 select-all">
-                      {address}
-                    </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-                    <a
-                      href={`${NETWORK_CONFIGS.preprod.faucet}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 text-[11px]"
-                    >
-                      <span>Get Preprod DUST</span>
-                      <ExternalLink size={12} />
+                  <div className="pr-wallet-address">{address}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginTop: 14, fontSize: '.66rem' }}>
+                    <a href={NETWORK_CONFIGS.preprod.faucet} target="_blank" rel="noopener noreferrer" style={{ color: '#8de0d8' }}>
+                      Get test DUST ↗
                     </a>
-
                     <button
-                      onClick={() => {
-                        disconnect();
-                        setWalletDropdownOpen(false);
-                      }}
-                      className="text-red-400 hover:text-red-300 text-[11px]"
+                      onClick={() => { disconnect(); setWalletDropdownOpen(false); }}
+                      style={{ border: 0, padding: 0, color: '#ff9eb6', background: 'none', cursor: 'pointer', fontSize: '.66rem' }}
                     >
                       Disconnect
                     </button>
@@ -139,67 +90,45 @@ export function Navbar() {
               )}
             </div>
           ) : (
-            <button
-              onClick={() => connect('preprod')}
-              disabled={isConnecting}
-              className="btn-primary py-1.5 px-3.5 text-xs font-semibold"
-            >
-              {isConnecting ? (
-                <>
-                  <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
-                  <span>Connecting...</span>
-                </>
-              ) : (
-                <>
-                  <Key size={14} />
-                  <span>Connect Wallet</span>
-                </>
-              )}
+            <button onClick={() => connect('preprod')} disabled={isConnecting} className="btn-primary" style={{ padding: '.62rem .95rem', fontSize: '.7rem' }}>
+              {isConnecting ? 'syncing…' : 'Connect vault'}
             </button>
           )}
 
-          {/* Mobile menu trigger */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="pr-mobile-trigger"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileMenuOpen ? '×' : '≡'}
           </button>
         </div>
       </div>
 
-      {/* Mobile Nav */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-800 bg-[#080c14] px-4 py-3 space-y-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2 rounded-md text-sm font-medium ${
-                location.pathname === link.path
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        <nav id="mobile-navigation" className="pr-mobile-menu" aria-label="Mobile navigation">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path || (link.path === '/' && location.pathname === '/overview');
+            return (
+              <Link key={link.path} to={link.path} onClick={() => setMobileMenuOpen(false)} className={isActive ? 'active' : ''} aria-current={isActive ? 'page' : undefined}>
+                {link.label}
+              </Link>
+            );
+          })}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 14, color: walletStatus === 'detected' ? '#8de0d8' : '#777486', fontFamily: 'var(--font-mono)', fontSize: '.58rem' }}>
+            <span className="pr-network-dot" />
+            {walletStatus === 'detected' ? 'wallet extension detected' : 'privacy-first / midnight preprod'}
+          </div>
+        </nav>
       )}
 
-      {/* Connection error banner if any */}
       {connectionError && (
-        <div className="bg-amber-950/80 border-b border-amber-800 text-amber-200 px-4 py-2 text-xs flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <AlertCircle size={15} className="text-amber-400 shrink-0" />
-            <span>{connectionError}</span>
-          </div>
-          <button
-            onClick={() => connect('preprod')}
-            className="underline hover:text-white shrink-0 ml-4 font-semibold"
-          >
-            Retry
+        <div className="pr-connection-error" role="alert">
+          <span>Vault connection paused — {connectionError}</span>
+          <button onClick={() => connect('preprod')} style={{ border: 0, color: '#f4d998', background: 'none', textDecoration: 'underline', cursor: 'pointer', fontSize: '.7rem' }}>
+            retry
           </button>
         </div>
       )}
