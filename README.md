@@ -5,7 +5,7 @@
 [![Midnight Network](https://img.shields.io/badge/Network-Midnight-blueviolet?style=for-the-badge)](https://midnight.network)
 [![Language](https://img.shields.io/badge/Language-Compact-orange?style=for-the-badge)](https://midnight.network)
 [![Tested With](https://img.shields.io/badge/Tested%20With-Vitest-yellow?style=for-the-badge)](https://vitest.dev)
-[![State](https://img.shields.io/badge/Level-4%20Complete-success?style=for-the-badge)](#)
+[![State](https://img.shields.io/badge/Level-3%20Complete-success?style=for-the-badge)](#)
 [![CI](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml/badge.svg)](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml)
 [![Live App](https://img.shields.io/badge/Live%20App-Vercel-success?style=for-the-badge&logo=vercel)](https://proof-rent-zeta.vercel.app/)
 [![Demo Video](https://img.shields.io/badge/Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing)
@@ -27,7 +27,7 @@ ProofRent is a decentralized application (dApp) engineered on the **Midnight Net
 3. [Zero-Knowledge Privacy Model](#zero-knowledge-privacy-model)
 4. [August Submission Updates](#august-submission-updates)
 5. [Smart Contract Implementation](#smart-contract-implementation)
-6. [Hackathon Progression (Levels 1-4)](#hackathon-progression-levels-1-4)
+6. [Hackathon Progression (Levels 1-3)](#hackathon-progression-levels-1-3)
 7. [Project Showcase & Verification Proofs](#project-showcase--verification-proofs)
 8. [Local Development & Setup Guide](#local-development--setup-guide)
 9. [Author & Acknowledgements](#author--acknowledgements)
@@ -244,13 +244,13 @@ export circuit update_policy(
 
 ---
 
-## Hackathon Progression (Levels 1-4)
+## Hackathon Progression (Levels 1-3)
 
 This repository fulfills the strict progression requirements of the "New Moon to Full" Midnight Builder Journey.
 
 ### Level 1: Setup & First Contract
-- **Objective:** Establish the WSL2/Docker toolchain, write the foundational Compact contract, and document the product proposal (Private Rental History Gate).
-- **Status:** Complete. The contract successfully compiles, generating the required `zkir` and `bzkir` proving artifacts and TypeScript runtime bindings.
+- **Objective:** Establish the WSL2/Docker toolchain, write the foundational Compact contract, and document the product proposal ([proposals.md](./proposals.md) / Private Rental History Gate).
+- **Status:** Complete. The contract successfully compiles, generating the required `zkir` and `bzkir` proving artifacts and TypeScript runtime bindings. Product proposal documented in [proposals.md](./proposals.md).
 
 ### Level 2: Frontend Integration
 - **Objective:** Develop a robust frontend interface and establish wallet connectivity.
@@ -261,14 +261,6 @@ This repository fulfills the strict progression requirements of the "New Moon to
 ### Level 3: Production-Grade dApp
 - **Objective:** Implement automated testing, Continuous Integration (CI/CD), and a polished user interface.
 - **Status:** Complete. Vitest suites assert both successful verification and expected failure modes across 23 circuit assertions. GitHub Actions workflows automatically test and build the contract and frontend on every push.
-
-### Level 4: MVP Goes Live
-- **Objective:** Deploy the frontend to a production CDN, finalize documentation, and establish a public brand presence.
-- **Status:** Complete.
-  - **Live Application:** [https://proof-rent-zeta.vercel.app/](https://proof-rent-zeta.vercel.app/)
-  - **Deployed Contract (Preprod):** [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
-  - **Demo Video Presentation:** [Watch on Google Drive](https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing)
-  - **Public Brand Presence (X Profile):** *(Post link to be provided)*
 
 ---
 
