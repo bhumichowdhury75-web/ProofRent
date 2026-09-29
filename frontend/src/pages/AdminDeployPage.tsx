@@ -17,7 +17,7 @@ import {
   Cpu,
   Check,
   RefreshCw,
-} from 'lucide-react';
+} from '../components/PrismIcons';
 
 function getCompiledContract() {
   return CompiledContract.make('ProofRentContract', Contract).pipe(
@@ -121,15 +121,16 @@ export function AdminDeployPage() {
   };
 
   return (
-    <div className="container-custom py-8 max-w-4xl space-y-8">
-      {/* Title */}
-      <div>
-        <div className="badge-verified mb-2">Protocol Deployment & Governance</div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Contract Initializer</h2>
-        <p className="text-slate-400 text-sm mt-1">
-          Deploy and configure the ProofRent Compact smart contract to Midnight Preprod testnet.
-        </p>
-      </div>
+    <div className="container-custom pr-workspace space-y-8">
+      <header className="pr-workspace-header">
+        <div>
+          <span className="badge-private mb-4">Protocol control room</span>
+          <h1>Set the rules.<br /><span>Protect the details.</span></h1>
+          <p className="pr-workspace-lead">Configure the rental policy and connect your ProofRent contract. This workspace targets the Midnight Preprod test network.</p>
+        </div>
+        <div className="pr-workspace-art" aria-hidden="true"><img src="/proofrent-orb.svg" alt="" /></div>
+      </header>
+      <p className="pr-demo-note">Developer prototype · the existing deployment flow can fall back to a local placeholder address. Confirm any deployment independently in the explorer.</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Col: Deployer Form */}
