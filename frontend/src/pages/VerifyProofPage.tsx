@@ -15,7 +15,7 @@ import {
   X,
   Sliders,
   AlertCircle,
-} from 'lucide-react';
+} from '../components/PrismIcons';
 
 export function VerifyProofPage() {
   const { isConnected, connect } = useWallet();
@@ -46,15 +46,16 @@ export function VerifyProofPage() {
   const isEligible = passesMonths && passesScore && passesViolations && passesLease;
 
   return (
-    <div className="container-custom py-8 max-w-4xl space-y-8">
-      {/* Title */}
-      <div>
-        <div className="badge-verified mb-2">Zero-Knowledge Verification</div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Prove Your Rental History</h2>
-        <p className="text-slate-400 text-sm mt-1">
-          Generate an authentic cryptographic zero-knowledge proof for prospective landlords.
-        </p>
-      </div>
+    <div className="container-custom pr-workspace space-y-8">
+      <header className="pr-workspace-header">
+        <div>
+          <span className="badge-private mb-4">Disclosure studio</span>
+          <h1>Share the proof.<br /><span>Not your past.</span></h1>
+          <p className="pr-workspace-lead">Choose a request, select your credential, and review exactly what a new landlord will learn. Your private details stay in your vault.</p>
+        </div>
+        <div className="pr-workspace-art" aria-hidden="true"><img src="/proofrent-orb.svg" alt="" /></div>
+      </header>
+      <p className="pr-demo-note">Prototype workspace · sample credentials and proof receipts are local demonstrations, not confirmed on-chain transactions.</p>
 
       {/* Step by Step Container */}
       <div className="space-y-6">
