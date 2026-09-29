@@ -19,7 +19,7 @@ import {
   EyeOff,
   Copy,
   Check,
-} from 'lucide-react';
+} from './PrismIcons';
 
 interface ProofModalProps {
   isOpen: boolean;
