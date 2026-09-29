@@ -8,6 +8,7 @@
 [![State](https://img.shields.io/badge/Level-4%20Complete-success?style=for-the-badge)](#)
 [![CI](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml/badge.svg)](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml)
 [![Live App](https://img.shields.io/badge/Live%20App-Vercel-success?style=for-the-badge&logo=vercel)](https://proof-rent-zeta.vercel.app/)
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing)
 [![Deploy on Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/bhumichowdhury75-web/ProofRent&root=frontend)
 [![X (Twitter) Follow](https://img.shields.io/badge/X-Follow-blue?style=for-the-badge&logo=x)](#)
 
@@ -37,7 +38,7 @@ ProofRent is a decentralized application (dApp) engineered on the **Midnight Net
 
 - **Live Application (Vercel):** [https://proof-rent-zeta.vercel.app/](https://proof-rent-zeta.vercel.app/)
 - **Deployed Contract (Midnight Preprod):** [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
-- **Demo Video Presentation:** *(Recording in progress - video link to be provided)*
+- **Demo Video Presentation:** [Watch on Google Drive](https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing)
 - **Public Brand Presence (X Profile):** *(Post link to be provided)*
 
 ---
@@ -266,7 +267,7 @@ This repository fulfills the strict progression requirements of the "New Moon to
 - **Status:** Complete.
   - **Live Application:** [https://proof-rent-zeta.vercel.app/](https://proof-rent-zeta.vercel.app/)
   - **Deployed Contract (Preprod):** [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
-  - **Demo Video Presentation:** *(Recording in progress - video link to be provided)*
+  - **Demo Video Presentation:** [Watch on Google Drive](https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing)
   - **Public Brand Presence (X Profile):** *(Post link to be provided)*
 
 ---

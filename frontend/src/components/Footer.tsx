@@ -34,6 +34,7 @@ export function Footer() {
               <a href="https://docs.midnight.network" target="_blank" rel="noopener noreferrer">Midnight docs ↗</a>
               <a href={NETWORK_CONFIGS.preprod.faucet} target="_blank" rel="noopener noreferrer">Preprod faucet ↗</a>
               <a href={NETWORK_CONFIGS.preprod.explorer} target="_blank" rel="noopener noreferrer">Explorer ↗</a>
+              <a href="https://drive.google.com/file/d/1bwW57Fg6nXwPgy4gvnMphos0hCo99d8i/view?usp=sharing" target="_blank" rel="noopener noreferrer">Demo video ↗</a>
             </div>
           </div>
         </div>
