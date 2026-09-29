@@ -11,6 +11,8 @@
     "compile": "node scripts/compile.js",
     "copy:managed": "node scripts/copy-managed.js",
     "build:contract": "node scripts/compile.js && node scripts/copy-managed.js",
+    "build:frontend": "yarn --cwd frontend build",
+    "build": "yarn build:frontend",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules\" vitest run",
     "test:local": "cross-env MIDNIGHT_NETWORK=local yarn test",
     "test:preprod": "cross-env MIDNIGHT_NETWORK=preprod yarn test",
