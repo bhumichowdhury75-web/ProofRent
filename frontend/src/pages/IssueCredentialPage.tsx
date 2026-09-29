@@ -16,7 +16,7 @@ import {
   Plus,
   ArrowRight,
   ExternalLink,
-} from 'lucide-react';
+} from '../components/PrismIcons';
 
 export function IssueCredentialPage() {
   const { address, isConnected, connect, session } = useWallet();
@@ -97,15 +97,16 @@ export function IssueCredentialPage() {
   };
 
   return (
-    <div className="container-custom py-8 max-w-4xl space-y-8">
-      {/* Title */}
-      <div>
-        <div className="badge-verified mb-2">Landlord Authority Portal</div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Issue Verifiable Rental Credential</h2>
-        <p className="text-slate-400 text-sm mt-1">
-          Issue a privacy-preserving rental credential to a previous tenant. The cryptographic commitment is recorded for zero-knowledge verification.
-        </p>
-      </div>
+    <div className="container-custom pr-workspace space-y-8">
+      <header className="pr-workspace-header">
+        <div>
+          <span className="badge-private mb-4">Credential foundry</span>
+          <h1>A good tenant.<br /><span>A lasting credential.</span></h1>
+          <p className="pr-workspace-lead">Give a previous tenant a portable record of their rental history. Create a commitment while keeping the personal details separate.</p>
+        </div>
+        <div className="pr-workspace-art" aria-hidden="true"><img src="/proofrent-orb.svg" alt="" /></div>
+      </header>
+      <p className="pr-demo-note">Local issuance prototype · this form computes a commitment and saves a browser record. It does not register the credential on-chain.</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Issuance Form */}
