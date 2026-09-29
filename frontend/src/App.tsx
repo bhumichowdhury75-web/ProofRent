@@ -13,10 +13,11 @@ export function App() {
   const { isConnected } = useWallet();
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#080c14] text-slate-100">
+    <div className="pr-app-shell">
+      <a href="#main-content" className="pr-skip-link">Skip to main content</a>
       <Navbar />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1" tabIndex={-1}>
         <Routes>
           <Route path="/" element={isConnected ? <TenantDashboardPage /> : <LandingPage />} />
           <Route path="/overview" element={<TenantDashboardPage />} />
