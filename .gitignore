@@ -31,3 +31,6 @@ Thumbs.db
 
 # NOTE: Do NOT ignore frontend/src/managed or frontend/public/managed!
 # They contain contract types and ZK keys needed for CI builds.
+
+# Agent internal directory
+__agent__/
