@@ -6,14 +6,14 @@ export const CONTRACT_ADDRESS_KEY = 'PROOFRENT_PREPROD_CONTRACT_ADDRESS';
 
 export const getContractAddress = (): string => {
   const stored = localStorage.getItem(CONTRACT_ADDRESS_KEY);
-  if (stored && /^[0-9a-fA-F]{64}$/.test(stored.trim())) {
+  if (stored && /^(mn_addr_[a-zA-Z0-9]+|[0-9a-fA-F]{64})$/.test(stored.trim())) {
     return stored.trim();
   }
   const envAddr = import.meta.env.VITE_PREPROD_CONTRACT_ADDRESS;
-  if (envAddr && /^[0-9a-fA-F]{64}$/.test(envAddr.trim())) {
+  if (envAddr && /^(mn_addr_[a-zA-Z0-9]+|[0-9a-fA-F]{64})$/.test(envAddr.trim())) {
     return envAddr.trim();
   }
-  return '';
+  return 'mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e';
 };
 
 export const setStoredContractAddress = (address: string) => {

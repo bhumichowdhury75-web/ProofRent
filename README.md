@@ -7,6 +7,7 @@
 [![Tested With](https://img.shields.io/badge/Tested%20With-Vitest-yellow?style=for-the-badge)](https://vitest.dev)
 [![State](https://img.shields.io/badge/Level-4%20Complete-success?style=for-the-badge)](#)
 [![CI](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml/badge.svg)](https://github.com/bhumichowdhury75-web/ProofRent/actions/workflows/ci.yaml)
+[![Live App](https://img.shields.io/badge/Live%20App-Vercel-success?style=for-the-badge&logo=vercel)](https://proof-rent-zeta.vercel.app/)
 [![Deploy on Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/bhumichowdhury75-web/ProofRent&root=frontend)
 [![X (Twitter) Follow](https://img.shields.io/badge/X-Follow-blue?style=for-the-badge&logo=x)](#)
 
@@ -34,9 +35,9 @@ ProofRent is a decentralized application (dApp) engineered on the **Midnight Net
 
 ## Official Submission Links
 
-- **Live Application (Vercel):** [https://scholar-shield-ten.vercel.app/](https://scholar-shield-ten.vercel.app/)
-- **Deployed Contract (Midnight Preprod):** [5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e](https://preprod.midnightexplorer.com/contracts/5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e)
-- **Demo Video Presentation:** [Watch on Google Drive](https://drive.google.com/file/d/1YUe91VBOKsM_-cpF4jBO_dhbyJyNmcWX/view?usp=sharing)
+- **Live Application (Vercel):** [https://proof-rent-zeta.vercel.app/](https://proof-rent-zeta.vercel.app/)
+- **Deployed Contract (Midnight Preprod):** [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
+- **Demo Video Presentation:** *(Recording in progress - video link to be provided)*
 - **Public Brand Presence (X Profile):** *(Post link to be provided)*
 
 ---
@@ -254,7 +255,7 @@ This repository fulfills the strict progression requirements of the "New Moon to
 - **Objective:** Develop a robust frontend interface and establish wallet connectivity.
 - **Status:** Complete. The application successfully interfaces with the 1AM and Lace wallets via the Midnight DApp Connector API.
 - **Deployed Contract Address (Preprod):** 
-  [5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e](https://preprod.midnightexplorer.com/contracts/5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e)
+  [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
 
 ### Level 3: Production-Grade dApp
 - **Objective:** Implement automated testing, Continuous Integration (CI/CD), and a polished user interface.
@@ -263,9 +264,9 @@ This repository fulfills the strict progression requirements of the "New Moon to
 ### Level 4: MVP Goes Live
 - **Objective:** Deploy the frontend to a production CDN, finalize documentation, and establish a public brand presence.
 - **Status:** Complete.
-  - **Live Application:** [https://scholar-shield-ten.vercel.app/](https://scholar-shield-ten.vercel.app/)
-  - **Deployed Contract (Preprod):** [5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e](https://preprod.midnightexplorer.com/contracts/5a9cd8179b54c81863309dcfacd83f8207f0fc35a1ab79cc4ff524b334c8ae1e)
-  - **Demo Video Presentation:** [Watch on Google Drive](https://drive.google.com/file/d/1YUe91VBOKsM_-cpF4jBO_dhbyJyNmcWX/view?usp=sharing)
+  - **Live Application:** [https://proof-rent-zeta.vercel.app/](https://proof-rent-zeta.vercel.app/)
+  - **Deployed Contract (Preprod):** [mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e](https://preprod.midnightexplorer.com/contracts/mn_addr_preprod1fjw64hh5veuayhl782sxggpq8jfp0vq0zvv3cvz94nv7cnzu9clqp3zk9e)
+  - **Demo Video Presentation:** *(Recording in progress - video link to be provided)*
   - **Public Brand Presence (X Profile):** *(Post link to be provided)*
 
 ---
